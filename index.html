@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Assignment 5</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <h1>Assignment5</h1>
+    <nav aria-label="Assignment tasks">
+      <a href="#task1">1 · Code breaker</a>
+      <a href="#task2">2 · Configurator</a>
+      <a href="#task3">3 · Ticket builder</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section id="task1" class="panel" aria-labelledby="t1-title">
+      <h2 id="t1-title">Task 1 · Code breaker</h2>
+      <p id="cb-rules" class="lead"></p>
+
+      <form id="cb-form" autocomplete="off">
+        <label for="cb-input">Your guess</label>
+        <div class="row">
+          <input id="cb-input" type="text" inputmode="numeric" aria-describedby="cb-message">
+          <button id="cb-submit" type="submit" class="btn">Guess</button>
+          <button id="cb-restart" type="button" class="btn btn-secondary">New game</button>
+        </div>
+      </form>
+
+      <p id="cb-message" class="message" role="status" aria-live="polite"></p>
+
+      <div class="meter-row">
+        <span>Attempts left: <strong id="cb-left"></strong></span>
+        <progress id="cb-progress" aria-label="Attempts used"></progress>
+      </div>
+
+      <ol id="cb-history" class="history" aria-label="Guess history"></ol>
+      <p id="cb-empty" class="empty">No guesses yet. Type a code and press Guess.</p>
+    </section>
+
+    <section id="task2" class="panel" aria-labelledby="t2-title">
+      <h2 id="t2-title">Task 2 · Mission configurator</h2>
+      <p class="lead">Pick one item per category. Incompatible or too expensive items are blocked and the reason is shown. Save up to 3 builds and compare them.</p>
+
+      <div id="configurator">
+        <div class="toolbar">
+          <div class="field-inline">
+            <label for="cfg-search">Search</label>
+            <input id="cfg-search" type="search" placeholder="name or tag, e.g. mars">
+          </div>
+          <div class="field-inline">
+            <label for="cfg-category">Category</label>
+            <select id="cfg-category"></select>
+          </div>
+          <div class="field-inline">
+            <label for="cfg-budget">Budget (USD)</label>
+            <input id="cfg-budget" type="number" min="0" step="1000" inputmode="numeric">
+          </div>
+        </div>
+
+        <p id="cfg-message" class="message" role="status" aria-live="polite"></p>
+
+        <div class="cfg-layout">
+          <div id="cfg-items" class="cards"></div>
+          <aside id="cfg-summary" class="summary" aria-label="Current build"></aside>
+        </div>
+
+        <div id="cfg-builds" class="builds"></div>
+      </div>
+    </section>
+
+    <section id="task3" class="panel" aria-labelledby="t3-title">
+      <h2 id="t3-title">Task 3 · Launch ticket builder</h2>
+      <p class="lead">Fill in the form. The preview updates while you type and the ticket is created only from correct data.</p>
+
+      <div class="t3-layout">
+        <form id="ticket-form" aria-labelledby="t3-title">
+          <div id="tf-summary" class="error-summary" role="alert" tabindex="-1" hidden></div>
+
+          <div class="field">
+            <label for="tf-event">Event</label>
+            <select id="tf-event" name="event" required aria-describedby="tf-event-error"></select>
+            <p id="tf-event-error" class="field-error"></p>
+          </div>
+
+          <div class="field">
+            <label for="tf-date">Date</label>
+            <input id="tf-date" name="date" type="date" required min="2027-01-01" max="2027-12-31" aria-describedby="tf-date-hint tf-date-error">
+            <p id="tf-date-hint" class="hint">Choose an event first to see its dates.</p>
+            <p id="tf-date-error" class="field-error"></p>
+          </div>
+
+          <div class="field">
+            <label for="tf-type">Ticket type</label>
+            <select id="tf-type" name="type" required aria-describedby="tf-type-error"></select>
+            <p id="tf-type-error" class="field-error"></p>
+          </div>
+
+          <div class="field">
+            <label for="tf-quantity">Quantity</label>
+            <input id="tf-quantity" name="quantity" type="number" required min="1" max="6" step="1" inputmode="numeric" aria-describedby="tf-quantity-error">
+            <p id="tf-quantity-error" class="field-error"></p>
+          </div>
+
+          <div class="field">
+            <label for="tf-name">Full name</label>
+            <input id="tf-name" name="name" type="text" required minlength="3" maxlength="60" autocomplete="name" aria-describedby="tf-name-error">
+            <p id="tf-name-error" class="field-error"></p>
+          </div>
+
+          <div class="field">
+            <label for="tf-email">Email</label>
+            <input id="tf-email" name="email" type="email" required autocomplete="email" aria-describedby="tf-email-error">
+            <p id="tf-email-error" class="field-error"></p>
+          </div>
+
+          <div class="field">
+            <label for="tf-promo">Promo code <span class="optional">(optional)</span></label>
+            <input id="tf-promo" name="promo" type="text" maxlength="20" autocomplete="off" aria-describedby="tf-promo-error">
+            <p id="tf-promo-error" class="field-error"></p>
+          </div>
+
+          <button type="submit" class="btn">Buy tickets</button>
+        </form>
+
+        <aside id="tf-preview" class="preview" aria-label="Ticket preview" aria-live="polite">
+          <h3>Ticket preview</h3>
+          <dl>
+            <div><dt>Event</dt><dd id="pv-event"></dd></div>
+            <div><dt>Date</dt><dd id="pv-date"></dd></div>
+            <div><dt>Type</dt><dd id="pv-type"></dd></div>
+            <div><dt>Quantity</dt><dd id="pv-quantity"></dd></div>
+            <div><dt>Passenger</dt><dd id="pv-name"></dd></div>
+            <div><dt>Email</dt><dd id="pv-email"></dd></div>
+            <div><dt>Subtotal</dt><dd id="pv-subtotal"></dd></div>
+            <div><dt>Discount</dt><dd id="pv-discount"></dd></div>
+            <div class="total"><dt>Total</dt><dd id="pv-total"></dd></div>
+          </dl>
+        </aside>
+      </div>
+
+      <div id="tf-result" class="result" hidden></div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>Assignment 5</p>
+  </footer>
+
+  <script src="task1.js" defer></script>
+  <script src="task2.js" defer></script>
+  <script src="task3.js" defer></script>
+</body>
+</html>
